@@ -1,0 +1,53 @@
+CREATE DATABASE test;
+create table if not exists customer(
+    customerid char(5) not null,
+    companyname varchar(40) not null,
+    contactname char(30) null,
+    address varchar(60) null,
+    city char(15) null,
+    phone char(24) null,
+    fax char(24) null
+);
+
+create table if not exists order(
+    orderid integer not null,
+    customer_id char(5) not null,
+    orderdate DATE null,
+    shippeddate DATE null,
+    freight decimal(15,2) null,
+    shipname varchar(40) null,
+    shipaddress varchar(60) null,
+    quantity integer null
+);
+
+alter table order add shipregion integer not null;
+
+alter table order modify column shipregion character(8);
+
+alter table order drop column shipregion;
+
+drop table order;
+
+drop table customer;
+
+create table if not exists customer(
+    customerid char(5) not null primary key,
+    companyname varchar(40) not null,
+    contactname char(30) null,
+    address varchar(60) null,
+    city char(15) null,
+    phone char(24) null,
+    fax char(24) null
+);
+
+create table if not exists orders(
+    orderid INTEGER primary key ,
+    customer_id char(5),
+    orderdate DATE null,
+    shippeddate DATE null,
+    freight decimal(15,2) null,
+    shipname varchar(40) null,
+    shipaddress varchar(60) null,
+    quantity integer null,
+    foreign key (customer_id) references customer(customerid)
+);
